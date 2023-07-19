@@ -81,6 +81,6 @@ public class JobUpdateParam {
     /**
      * 任务id
      */
-    private Integer id;
+    private Long id;
 
 }

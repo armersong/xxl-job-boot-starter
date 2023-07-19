@@ -59,21 +59,21 @@ public interface XxlJobService {
      * @param jobInfo 任务信息
      * @return 任务id
      */
-    Integer add(XxlJobInfo jobInfo);
+    Long add(XxlJobInfo jobInfo);
 
     /**
      * 通过必要参数添加job，其它参数和通过网页添加job的默认参数一样
      * @param  addParam
      * @return
      */
-    Integer add(XxlJobInfoAddParam addParam);
+    Long add(XxlJobInfoAddParam addParam);
 
     /**
      * 通过必要参数添加job，其它参数和通过网页添加job的默认参数一样。但是可以修改默认参数
      * @param defaultXxlJobAddParam
      * @return
      */
-    Integer add(DefaultXxlJobAddParam defaultXxlJobAddParam);
+    Long add(DefaultXxlJobAddParam defaultXxlJobAddParam);
 
     /**
      * 添加只在将来执行一次的任务
@@ -83,14 +83,14 @@ public interface XxlJobService {
      * @param executorHandler 任务处理器，关联@XxlJob的value
      * @return
      */
-    Integer addJustExecuteOnceJob(String customId, Date triggerTime, String executorParam, String executorHandler);
+    Long addJustExecuteOnceJob(String customId, Date triggerTime, String executorParam, String executorHandler);
 
     /**
      * 通过自定义的唯一业务id查询任务id
      * @param customId
      * @return
      */
-    Integer getJobIdByCustomId(String customId);
+    Long getJobIdByCustomId(String customId);
 
     /**
      * 通过自定义的唯一业务id查询任务
@@ -124,7 +124,7 @@ public interface XxlJobService {
      * 	 *
      * @param id 任务id
      */
-    void remove(int id);
+    void remove(long id);
 
 
     /**
@@ -142,7 +142,7 @@ public interface XxlJobService {
      *
      * @param id 任务id
      */
-    void start(int id);
+    void start(long id);
 
     /**
      * 开始所有符合条件的任务
@@ -158,7 +158,7 @@ public interface XxlJobService {
      *
      * @param id 任务id
      */
-    void stop(int id);
+    void stop(long id);
 
     /**
      * 停止所有符合条件的任务
@@ -169,7 +169,7 @@ public interface XxlJobService {
      */
     void stop(TriggerStatusEnum triggerStatus, String jobDesc, String executorHandler, String author);
 
-    void triggerJob(int id, String executorParam, String addressList);
+    void triggerJob(long id, String executorParam, String addressList);
 
     List<String> nextTriggerTime(String scheduleType, String scheduleConf);
 

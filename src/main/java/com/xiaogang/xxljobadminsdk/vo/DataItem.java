@@ -1,8 +1,6 @@
 package com.xiaogang.xxljobadminsdk.vo;
 
 import java.util.List;
-import javax.annotation.Generated;
-import com.google.gson.annotations.SerializedName;
 import lombok.Data;
 
 import java.io.Serializable;

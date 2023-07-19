@@ -33,6 +33,6 @@ public @Data class JobInfoPageItem implements Serializable {
 	private String glueType;
 	private String executorHandler;
 	private int executorFailRetryCount;
-	private int id;
+	private long id;
 	private int executorTimeout;
 }

@@ -134,24 +134,24 @@ public class XxlJobServiceImpl implements XxlJobService {
     }
 
     @Override
-    public Integer add(XxlJobInfo jobInfo) {
+    public Long add(XxlJobInfo jobInfo) {
         HttpRequest httpRequest = postHttpRequest(jobAddPath);
         com.alibaba.fastjson.JSONObject jsonObject = JSON.parseObject(JSON.toJSONString(jobInfo));
         ReturnT<String> returnT = requestXxlJobAdmin(httpRequest, jsonObject, new TypeReference<ReturnT<String>>() {
         });
-        return Integer.valueOf(returnT.getContent());
+        return Long.valueOf(returnT.getContent());
     }
 
     @Override
-    public Integer add(XxlJobInfoAddParam addParam) {
+    public Long add(XxlJobInfoAddParam addParam) {
         DefaultXxlJobAddParam defaultXxlJobAddParam = new DefaultXxlJobAddParam();
         BeanUtils.copyProperties(addParam,defaultXxlJobAddParam);
-        Integer jobId = this.add(defaultXxlJobAddParam);
+        Long jobId = this.add(defaultXxlJobAddParam);
         return jobId;
     }
 
     @Override
-    public Integer addJustExecuteOnceJob(String customId, Date triggerTime, String executorParam, String executorHandler) {
+    public Long addJustExecuteOnceJob(String customId, Date triggerTime, String executorParam, String executorHandler) {
         JobInfoPageItem jobInfoPageItem = this.getJobByCustomId(customId);
         Assert.isNull(jobInfoPageItem,"已经存在自定义id为{}的任务，请修改",customId);
         Date now = new Date();
@@ -166,12 +166,12 @@ public class XxlJobServiceImpl implements XxlJobService {
         addParam.setScheduleConf(cron);
         addParam.setExecutorHandler(executorHandler);
         addParam.setExecutorParam(executorParam);
-        Integer jobId = this.add(addParam);
+        Long jobId = this.add(addParam);
         return jobId;
     }
 
     @Override
-    public Integer getJobIdByCustomId(String customId) {
+    public Long getJobIdByCustomId(String customId) {
         JobInfoPageItem jobInfoPageItem = this.getJobByCustomId(customId);
         if (jobInfoPageItem == null) {
             return null;
@@ -198,7 +198,7 @@ public class XxlJobServiceImpl implements XxlJobService {
     }
 
     @Override
-    public Integer add(DefaultXxlJobAddParam defaultXxlJobAddParam) {
+    public Long add(DefaultXxlJobAddParam defaultXxlJobAddParam) {
         XxlJobInfo jobInfo = new XxlJobInfo();
         ScheduleTypeEnum scheduleType = defaultXxlJobAddParam.getScheduleType();
         if (scheduleType != null) {
@@ -227,7 +227,7 @@ public class XxlJobServiceImpl implements XxlJobService {
         jobInfo.setJobGroup(jobGroupId);
 
         this.validAddJobParam(jobInfo);
-        Integer jobId = this.add(jobInfo);
+        Long jobId = this.add(jobInfo);
         return jobId;
     }
 
@@ -279,7 +279,7 @@ public class XxlJobServiceImpl implements XxlJobService {
     }
 
     @Override
-    public void remove(int id) {
+    public void remove(long id) {
         HttpRequest httpRequest = postHttpRequest(jobDeletePath);
 
         Map<String,Object> map = new HashMap<>();
@@ -356,7 +356,7 @@ public class XxlJobServiceImpl implements XxlJobService {
     }
 
     @Override
-    public void start(int id) {
+    public void start(long id) {
         HttpRequest httpRequest = postHttpRequest(jobStartPath);
 
         Map<String,Object> map = new HashMap<>();
@@ -365,7 +365,7 @@ public class XxlJobServiceImpl implements XxlJobService {
     }
 
     @Override
-    public void stop(int id) {
+    public void stop(long id) {
         HttpRequest httpRequest = postHttpRequest(jobStopPath);
 
         Map<String,Object> map = new HashMap<>();
@@ -409,7 +409,7 @@ public class XxlJobServiceImpl implements XxlJobService {
     }
 
     @Override
-    public void triggerJob(int id, String executorParam, String addressList) {
+    public void triggerJob(long id, String executorParam, String addressList) {
         HttpRequest httpRequest = postHttpRequest(jobTriggerPath);
 
         Map<String,Object> map = new HashMap<>();
